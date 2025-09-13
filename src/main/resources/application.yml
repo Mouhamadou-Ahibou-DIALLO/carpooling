@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: carpooling
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB}?currentSchema=public
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    clean-disabled: true
+    locations: classpath:db/migration
+    loggers: slf4j
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+    com:
+      carpooling: DEBUG
+    io:
+    lettuce:
+      core: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "prometheus"
+          - "metrics"
+  prometheus:
+    metrics:
+      export:
+        enabled: true

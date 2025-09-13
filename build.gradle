@@ -28,6 +28,7 @@ repositories {
 ext {
     set('snippetsDir', file("build/generated-snippets"))
     set('springAiVersion', "1.0.1")
+    set('logstash', '7.3')
 }
 
 dependencies {
@@ -56,6 +57,7 @@ dependencies {
     implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation 'org.apache.commons:commons-lang3:3.18.0'
     implementation 'org.apache.commons:commons-compress:1.27.1'
+    implementation "net.logstash.logback:logstash-logback-encoder:$logstash"
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
