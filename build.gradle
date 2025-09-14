@@ -1,8 +1,15 @@
+import com.github.spotbugs.snom.SpotBugsTask
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.5'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+
+    id 'checkstyle'
+    id 'pmd'
+    id 'jacoco'
+    id 'com.github.spotbugs' version '5.0.14'
 }
 
 group = 'api'
@@ -29,6 +36,11 @@ ext {
     set('snippetsDir', file("build/generated-snippets"))
     set('springAiVersion', "1.0.1")
     set('logstash', '7.3')
+
+    set('checkstyleVersion', '10.12.0')
+    set('pmdVersion', '7.17.0')
+    set('jacocoVersion', '0.8.10')
+    set('spotbugsVersion', '4.9.4')
 }
 
 dependencies {
@@ -82,6 +94,68 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
     }
+}
+
+checkstyle {
+    toolVersion = "${checkstyleVersion}"
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+pmd {
+    toolVersion = "${pmdVersion}"
+    ruleSets = []
+    ruleSetFiles = files('config/pmd/ruleset.xml')
+}
+
+tasks.withType(Pmd).configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+spotbugs {
+    toolVersion = "${spotbugsVersion}"
+    effort = "max"
+    reportLevel = "medium"
+}
+
+tasks.withType(SpotBugsTask).configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+tasks.named('check') {
+    dependsOn 'checkstyleMain', 'checkstyleTest'
+    dependsOn 'pmdMain', 'pmdTest'
+    dependsOn 'spotbugsMain', 'spotbugsTest'
+    dependsOn 'jacocoTestReport'
 }
 
 tasks.named('test') {

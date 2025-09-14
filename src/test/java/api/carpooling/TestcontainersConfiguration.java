@@ -11,6 +11,11 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
 
+    /**
+     * Default port used for Redis in the tests.
+     */
+    private static final int REDIS_PORT = 6379;
+
     @Bean
     @ServiceConnection
     MongoDBContainer mongoDbContainer() {
@@ -26,7 +31,7 @@ class TestcontainersConfiguration {
     @Bean
     @ServiceConnection(name = "redis")
     GenericContainer<?> redisContainer() {
-        return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
+        return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(REDIS_PORT);
     }
 
 }
