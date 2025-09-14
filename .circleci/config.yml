@@ -1,9 +1,5 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@4.1.0
-  java: circleci/openjdk@3.2.0
-
 jobs:
   build:
     docker:
