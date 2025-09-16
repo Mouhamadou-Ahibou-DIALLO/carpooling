@@ -124,6 +124,10 @@ Le projet est équipé d’une pipeline CI/CD complète avec :
 
 [![codecov](https://codecov.io/gh/Mouhamadou-Ahibou-DIALLO/carpooling/graph/badge.svg?token=OY5CKMR8CB)](https://codecov.io/gh/Mouhamadou-Ahibou-DIALLO/carpooling)
 
+---
 
+## Explication de chaque fonctionnalité
+
+Se réferer au repertoire readme sur la racine du projet
 
 
