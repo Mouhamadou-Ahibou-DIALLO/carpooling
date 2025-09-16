@@ -33,28 +33,6 @@ jobs:
           name: Upload coverage to Codecov
           command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
-      - restore_cache:
-          keys:
-            - sonar-scanner-{{ checksum "build.gradle" }}
-            - sonar-scanner-
-
       - run:
-          name: SonarCloud Scan
-          command: |
-            export SONAR_SCANNER_VERSION=7.2.0.5079
-            export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux-x64
-            if [ ! -d "$SONAR_SCANNER_HOME" ]; then
-              curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux-x64.zip
-              unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
-            fi
-            export PATH=$SONAR_SCANNER_HOME/bin:$PATH
-
-            sonar-scanner \
-              -Dsonar.organization=organisation-diallo \
-              -Dsonar.projectKey=checkout_organisation-diallo01 \
-
-      - save_cache:
-          paths:
-            - ~/.sonar
-          key: sonar-scanner-{{ checksum "build.gradle" }}
-
+          name: Run SonarCloud analysis with Gradle
+          command: ./gradlew sonar --no-daemon

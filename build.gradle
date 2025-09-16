@@ -11,7 +11,7 @@ plugins {
     id 'jacoco'
     id 'com.github.spotbugs' version '5.0.14'
 
-    id 'org.sonarqube' version '6.3.1.5724'
+    id "org.sonarqube" version "6.3.1.5724"
 }
 
 group = 'api'
@@ -171,13 +171,9 @@ tasks.named('asciidoctor') {
 }
 
 
-sonarqube {
+sonar {
     properties {
-        property "sonar.projectKey", "Mouhamadou-Ahibou-DIALLO_carpooling"
-        property "sonar.organization", "Mouhamadou-Ahibou-DIALLO"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.junit.reportPaths", "build/test-results/test"
-        property "sonar.jacoco.reportPaths", "build/jacoco/test.exec"
+        property "sonar.projectKey", "checkout_organisation-diallo01"
+        property "sonar.organization", "organisation-diallo"
     }
 }
