@@ -38,8 +38,7 @@ jobs:
       - run:
           name: SonarCloud Scan
           command: |
-            ./gradlew sonarqube \
+            ./gradlew sonar \
               -Dsonar.projectKey=Mouhamadou-Ahibou-DIALLO_carpooling \
               -Dsonar.organization=Mouhamadou-Ahibou-DIALLO \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN
+              -Dsonar.host.url=https://sonarcloud.io
