@@ -4,7 +4,9 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:21.0
-
+    environment:
+      SONAR_TOKEN: $SONAR_TOKEN
+      CODECOV_TOKEN: $CODECOV_TOKEN
     steps:
       - checkout
 
@@ -39,5 +41,4 @@ jobs:
             ./gradlew sonar \
               -Dsonar.projectKey=Mouhamadou-Ahibou-DIALLO_carpooling \
               -Dsonar.organization=Mouhamadou-Ahibou-DIALLO \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN
+              -Dsonar.host.url=https://sonarcloud.io 
