@@ -2,7 +2,7 @@ services:
 
 
   postgres:
-    container_name: postgres
+    container_name: postgres_carpooling
     image: postgres:17.4
     restart: always
     networks:
@@ -16,10 +16,10 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   adminer:
-    container_name: adminer
+    container_name: adminer_carpooling
     image: adminer
     restart: always
     networks:
@@ -28,7 +28,7 @@ services:
       - "8084:8080"
 
   redis:
-    container_name: redis
+    container_name: redis_carpooling
     image: redis:8.0-rc1
     restart: always
     networks:
@@ -39,7 +39,7 @@ services:
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
     ports:
-      - "6379:6379"
+      - "6378:6379"
     volumes:
       - redis_data:/data
 

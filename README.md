@@ -70,7 +70,7 @@ docker compose up --build
 
 
 ### 4. Accès aux services
-API REST 
+API REST
 - URL principale : http://localhost:8080
 - Base path API : /api/v1
 
@@ -92,7 +92,7 @@ Intallation et démarrage
 
 ```bash
 # Se déplacer dans le dossier frontend
-cd frontend
+cd carpooling-frontend
 
 # Installer les dépendances
 npm install
@@ -128,6 +128,6 @@ Le projet est équipé d’une pipeline CI/CD complète avec :
 
 ## Explication de chaque fonctionnalité
 
-Se réferer au repertoire readme sur la racine du projet
+Se réferer au repertoire docs sur la racine du projet
 
 
