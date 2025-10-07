@@ -15,13 +15,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Security configuration class for Spring Security.
+ * <p>
+ * Configures JWT authentication, password encoding, and access rules
+ * for different endpoints based on roles.
+ */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    /**
+     * JWT authentication filter used to validate tokens on each request.
+     */
     private final JwtAuthFilter jwtAuthFilter;
 
+    /**
+     * Configures the security filter chain for HTTP requests.
+     * <p>
+     * Defines endpoint access rules, disables CSRF and CORS, and
+     * adds JWT filter before the username/password filter.
+     *
+     * @param http the HttpSecurity object
+     * @return the configured SecurityFilterChain
+     * @throws Exception in case of configuration errors
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -37,17 +56,29 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/super_admin/**").hasRole("SUPER_ADMIN")
                         .anyRequest().authenticated()
-                    )
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
+    /**
+     * Provides the AuthenticationManager bean used for authentication.
+     *
+     * @param authConfig the AuthenticationConfiguration
+     * @return the AuthenticationManager
+     * @throws Exception in case of configuration errors
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    /**
+     * Provides a PasswordEncoder bean using BCrypt hashing algorithm.
+     *
+     * @return a PasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

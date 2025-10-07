@@ -1,9 +1,6 @@
 package api.carpooling.exception.handler;
 
-import api.carpooling.application.exception.ExpiredRefreshTokenException;
-import api.carpooling.application.exception.PasswordNotMatchException;
-import api.carpooling.application.exception.UserExistsAlready;
-import api.carpooling.application.exception.UserNotFoundException;
+import api.carpooling.application.exception.*;
 import api.carpooling.exception.ErrorCode;
 import api.carpooling.exception.ErrorResponse;
 import api.carpooling.utils.ErrorResponseBuilder;
@@ -21,14 +18,23 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Global exception handler for the Carpooling API.
+ * Catches specific and generic exceptions and returns standardized error responses.
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles validation errors thrown by @Valid annotations.
+     *
+     * @param ex the validation exception
+     * @param request the HTTP request
+     * @return ResponseEntity with ErrorResponse
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        log.error("Validation error: {}", ex.getMessage());
-
         List<ErrorResponse.ValidationError> validationErrors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -49,9 +55,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
+    /**
+     * Handles generic exceptions not explicitly handled elsewhere.
+     *
+     * @param ex the exception
+     * @param request the HTTP request
+     * @return ResponseEntity with ErrorResponse
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex, HttpServletRequest request) {
-        log.error("Unexpected error", ex);
         ErrorResponse errorResponse = ErrorResponseBuilder.build(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "Internal Server Error",
@@ -62,6 +74,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
+    /**
+     * Maps a FieldError to ValidationError.
+     *
+     * @param fieldError the field error
+     * @return ValidationError object
+     */
     private ErrorResponse.ValidationError mapFieldError(FieldError fieldError) {
         return ErrorResponse.ValidationError.builder()
                 .field(fieldError.getField())
@@ -70,48 +88,30 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex,
-                                                            HttpServletRequest request) {
-        log.error("User not found", ex);
+    /**
+     * Handles all custom {@link ApiException} types thrown within the application.
+     * <p>
+     * This method centralizes the processing of domain-specific exceptions
+     * by converting them into a structured {@link ErrorResponse} object,
+     * ensuring consistent error formatting across the entire API.
+     * <p>
+     * The returned response includes details such as HTTP status, error code,
+     * descriptive message, and the URI where the exception occurred.
+     *
+     * @param ex       the custom {@code ApiException} thrown during request processing
+     * @param request  the current HTTP request from which the error originated
+     * @return a {@link ResponseEntity} containing the formatted {@link ErrorResponse}
+     *         and the appropriate HTTP status code defined in the exception
+     */
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponse> handleApiException(ApiException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = ErrorResponseBuilder.build(
-                HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(),
-                request.getRequestURI(), ErrorCode.USER_NOT_FOUND);
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-    }
-
-    @ExceptionHandler(UserExistsAlready.class)
-    public ResponseEntity<ErrorResponse> handleUserExistAlready(UserExistsAlready ex,
-                                                                HttpServletRequest request) {
-        log.error("User already exists", ex);
-        ErrorResponse errorResponse = ErrorResponseBuilder.build(
-                HttpStatus.FOUND, "Found User", ex.getMessage(),
-                request.getRequestURI(), ErrorCode.USER_FOUND);
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(errorResponse);
-    }
-
-    @ExceptionHandler(ExpiredRefreshTokenException.class)
-    public ResponseEntity<ErrorResponse> handleExpiredRefreshToken(ExpiredRefreshTokenException ex,
-                                                                   HttpServletRequest request) {
-        log.error("Expired refresh token", ex);
-        ErrorResponse errorResponse = ErrorResponseBuilder.build(
-                HttpStatus.BAD_REQUEST, "Expired Token Refresh",
-                ex.getMessage(), request.getRequestURI(),
-                ErrorCode.AUTH_TOKEN_EXPIRED);
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }
-
-    @ExceptionHandler(PasswordNotMatchException.class)
-    public ResponseEntity<ErrorResponse> handlePasswordNotMatch(PasswordNotMatchException ex,
-                                                                HttpServletRequest request) {
-        log.error("Password not match", ex);
-        ErrorResponse errorResponse = ErrorResponseBuilder.build(
-                HttpStatus.BAD_REQUEST, "Password invalid", ex.getMessage(),
-                request.getRequestURI(), ErrorCode.AUTH_PASSWORD_INVALID);
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+                ex.getHttpStatus(),
+                ex.getMessage(),
+                ex.getMessage(),
+                request.getRequestURI(),
+                ex.getErrorCode()
+        );
+        return ResponseEntity.status(ex.getHttpStatus()).body(errorResponse);
     }
 }

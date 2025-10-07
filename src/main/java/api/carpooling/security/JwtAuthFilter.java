@@ -20,21 +20,47 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * JWT authentication filter that validates incoming requests.
+ * <p>
+ * Extracts the JWT token from the Authorization header,
+ * validates it, and sets the authentication in the SecurityContext.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    /**
+     * Token generator utility used to parse and validate JWT tokens.
+     */
     private final TokenGenerator tokenGenerator;
+
+    /**
+     * Name of the HTTP header used for JWT authentication.
+     */
     private static final String AUTH_HEADER = "Authorization";
+
+    /**
+     * Prefix of the JWT token in the header (e.g., "Bearer ").
+     */
     private static final String TOKEN_PREFIX = "Bearer ";
 
+    /**
+     * Processes each HTTP request, validates the JWT token,
+     * and sets the authentication in the security context if valid.
+     *
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @param filterChain the filter chain
+     * @throws ServletException if a servlet error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-
         String header = request.getHeader(AUTH_HEADER);
 
         if (header != null && header.startsWith(TOKEN_PREFIX)) {

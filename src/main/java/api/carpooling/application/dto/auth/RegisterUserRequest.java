@@ -4,6 +4,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+/**
+ * DTO used to register a new user.
+ *
+ * @param username the username
+ * @param email the email address
+ * @param password the password
+ * @param phoneNumber the user's phone number
+ */
 public record RegisterUserRequest (
         @NotBlank(message = "Username is required and unique")
         String username,

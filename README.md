@@ -27,7 +27,7 @@ L’objectif est de réduire le trafic, favoriser la mobilité durable et créer
 **Backend**
 - Java 21 (Temurin)
 - Spring Boot 3+
-- PostgreSQL 17.4
+- PostgresSQL 17.4
 - Redis 8 (RC)
 - Flyway (migrations SQL)
 - Docker & Docker Compose
@@ -88,7 +88,7 @@ Monitoring & Health (Actuator)
 
 ## 🎨 Frontend
 
-Intallation et démarrage
+Installation et démarrage
 
 ```bash
 # Se déplacer dans le dossier frontend
@@ -106,7 +106,7 @@ npm start
 
 ## ⚙️ CI/CD & Qualité du code
 
-Le projet est équipé d’une pipeline CI/CD complète avec :
+Le projet est équipé d’un pipeline CI/CD complète avec :
 
 - CircleCI : intégration continue (build, tests, analyse)
 - SonarCloud : qualité du code et détection des bugs/vulnérabilités
@@ -120,10 +120,14 @@ Le projet est équipé d’une pipeline CI/CD complète avec :
 
 ## 📊 Badges
 
+CircleCi : 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Mouhamadou-Ahibou-DIALLO/carpooling/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Mouhamadou-Ahibou-DIALLO/carpooling/tree/master)
 
+CodeCov :
 [![codecov](https://codecov.io/gh/Mouhamadou-Ahibou-DIALLO/carpooling/graph/badge.svg?token=OY5CKMR8CB)](https://codecov.io/gh/Mouhamadou-Ahibou-DIALLO/carpooling)
 
+SonarCloud :
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=checkout_organisation-diallo01&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=checkout_organisation-diallo01)
 ---
 
 ## Explication de chaque fonctionnalité

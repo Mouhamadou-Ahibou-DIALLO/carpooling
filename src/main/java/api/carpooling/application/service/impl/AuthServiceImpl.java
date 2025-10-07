@@ -23,14 +23,29 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Implementation of AuthService for user registration, login,
+ * token refresh, and fetching authenticated user profile.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
 public class AuthServiceImpl implements AuthService {
 
+    /**
+     * Repository for User entity operations.
+     */
     private final UserRepository userRepository;
+
+    /**
+     * Mapper to convert between User entity and UserDTO.
+     */
     private final UserMapper userMapper;
+
+    /**
+     * Utility class for generating and parsing JWT tokens.
+     */
     private final TokenGenerator tokenGenerator;
 
     @Override

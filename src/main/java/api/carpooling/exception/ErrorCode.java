@@ -1,5 +1,8 @@
 package api.carpooling.exception;
 
+/**
+ * Enum representing custom error codes for API responses.
+ */
 public enum ErrorCode {
     AUTH_UNAUTHORIZED,
     VALIDATION_ERROR,

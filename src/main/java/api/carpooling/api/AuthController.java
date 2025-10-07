@@ -15,19 +15,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for user authentication.
+ * <p>
+ * Provides endpoints for registration, login, token refresh, and
+ * fetching the current authenticated user's profile.
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
 @Tag(name = "Auth user", description = "Auth user management API")
 public class AuthController {
 
+    /**
+     * Service used to perform authentication operations.
+     */
     private final AuthService authService;
 
+    /**
+     * Registers a new user and generates a JWT token.
+     *
+     * @param registerUserRequest registration request payload
+     * @return UserDTO of the registered user
+     */
     @PostMapping("/register")
-    @Operation(
-            summary = "Register a new user",
-            description = "Create a user, generate a token immediately."
-    )
+    @Operation(summary = "Register a new user", description = "Create a user, generate a token immediately.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "User registered successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid password or user already exists")
@@ -37,11 +49,14 @@ public class AuthController {
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
+    /**
+     * Authenticates a user with email and password.
+     *
+     * @param loginUserRequest login request payload
+     * @return UserDTO of the authenticated user
+     */
     @PostMapping("/login")
-    @Operation(
-            summary = "Login user",
-            description = "Authenticate user with email & password"
-    )
+    @Operation(summary = "Login user", description = "Authenticate user with email & password")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User logged successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid credentials"),
@@ -52,11 +67,14 @@ public class AuthController {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+    /**
+     * Refreshes an access JWT token using a refresh token.
+     *
+     * @param refreshToken the refresh token
+     * @return UserDTO with new JWT token
+     */
     @PostMapping("/refresh_token")
-    @Operation(
-            summary = "Refresh access token",
-            description = "Generate a new JWT token using a refresh token."
-    )
+    @Operation(summary = "Refresh access token", description = "Generate a new JWT token using a refresh token.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Token refreshed successfully"),
             @ApiResponse(responseCode = "401", description = "Expired refresh token"),
@@ -67,12 +85,15 @@ public class AuthController {
         return ResponseEntity.ok(userDTO);
     }
 
+    /**
+     * Retrieves the profile of the currently authenticated user.
+     *
+     * @param authHeader the Authorization header containing the JWT token
+     * @return UserDTO of the authenticated user
+     */
     @GetMapping("/me")
-    @Operation(
-            summary = "Get logged user profile",
-            description = "Return the profile of the authenticated user"
-    )
-    @ApiResponses(value = {
+    @Operation(summary = "Get logged user profile", description = "Return the profile of the authenticated user")
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User profile retrieved"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "404", description = "User not found")

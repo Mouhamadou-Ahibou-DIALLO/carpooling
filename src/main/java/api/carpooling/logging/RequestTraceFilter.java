@@ -14,22 +14,36 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * RequestTraceFilter
- * - Associate a unique identifier to each HTTP request.
- * - Allows you to track the complete journey of a request in the logs.
+ * Filter that assigns a unique trace ID to each HTTP request.
+ * <p>
+ * The trace ID is either reused from the "X-Request-Trace" header
+ * or generated if absent. It is added to the MDC for logging
+ * and included in the response header.
  */
 @Component
 @Slf4j
 public class RequestTraceFilter extends OncePerRequestFilter {
 
+    /**
+     * Name of the HTTP header used to carry the trace ID.
+     */
     private static final String TRACE_HEADER = "X-Request-Trace";
 
+    /**
+     * Assigns a unique trace ID to each HTTP request and adds it
+     * to the response header and logging context (MDC).
+     *
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @param filterChain the filter chain
+     * @throws ServletException if a servlet error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-
         String traceId = request.getHeader(TRACE_HEADER);
         if (traceId == null || traceId.isBlank()) {
             traceId = UUID.randomUUID().toString();
