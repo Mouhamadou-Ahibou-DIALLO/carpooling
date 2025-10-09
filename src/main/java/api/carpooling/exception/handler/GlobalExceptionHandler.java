@@ -98,8 +98,8 @@ public class GlobalExceptionHandler {
      * The returned response includes details such as HTTP status, error code,
      * descriptive message, and the URI where the exception occurred.
      *
-     * @param ex       the custom {@code ApiException} thrown during request processing
-     * @param request  the current HTTP request from which the error originated
+     * @param ex the custom {@code ApiException} thrown during request processing
+     * @param request the current HTTP request from which the error originated
      * @return a {@link ResponseEntity} containing the formatted {@link ErrorResponse}
      *         and the appropriate HTTP status code defined in the exception
      */

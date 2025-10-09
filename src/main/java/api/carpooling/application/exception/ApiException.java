@@ -1,6 +1,7 @@
 package api.carpooling.application.exception;
 
 import api.carpooling.exception.ErrorCode;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
  * It associates a specific {@link ErrorCode} and {@link HttpStatus}
  * with each thrown exception.
  */
+@Getter
 public abstract class ApiException extends RuntimeException {
 
     /**
@@ -34,23 +36,5 @@ public abstract class ApiException extends RuntimeException {
         super(message);
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
-    }
-
-    /**
-     * Returns the associated error code.
-     *
-     * @return the {@link ErrorCode} linked to this exception
-     */
-    public ErrorCode getErrorCode() {
-        return errorCode;
-    }
-
-    /**
-     * Returns the associated HTTP status.
-     *
-     * @return the {@link HttpStatus} linked to this exception
-     */
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
     }
 }
