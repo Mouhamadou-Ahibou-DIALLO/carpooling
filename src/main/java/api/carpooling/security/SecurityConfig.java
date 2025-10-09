@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,13 +44,14 @@ public class SecurityConfig {
      * @param http the HttpSecurity configuration object
      * @return the fully configured SecurityFilterChain
      */
-    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
+    @SuppressWarnings({"PMD.SignatureDeclareThrowsException", "java:S4502"})
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(AbstractHttpConfigurer::disable)
-                // CSRF is disabled intentionally because JWT is used for stateless authentication.
+                .cors(Customizer.withDefaults())
+
+                // CSRF is disabled intentionally because the app uses JWT authentication (stateless).
                 // No session or cookie-based authentication => not vulnerable to CSRF.
                 // SonarCloud warning acknowledged and safely ignored.
                 .csrf(AbstractHttpConfigurer::disable)
