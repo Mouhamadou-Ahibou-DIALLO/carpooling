@@ -23,5 +23,7 @@ class CarpoolingApplicationTests {
      */
     @Test
     void contextLoads() {
+        // Voluntarily empty test: simply checks that the Spring Boot context starts without error.
+        // NOSONAR
     }
 }

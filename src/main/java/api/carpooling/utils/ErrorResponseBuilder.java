@@ -14,7 +14,7 @@ public class ErrorResponseBuilder {
     /**
      * Private constructor to prevent instantiation.
      */
-    private ErrorResponseBuilder() {}
+    private ErrorResponseBuilder() { }
 
     /**
      * Builds an ErrorResponse with the given parameters.

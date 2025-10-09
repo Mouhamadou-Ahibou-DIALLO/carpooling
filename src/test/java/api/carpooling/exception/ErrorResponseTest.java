@@ -1,11 +1,22 @@
 package api.carpooling.exception;
 
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Unit tests for {@link ErrorResponse} DTO.
@@ -16,19 +27,34 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ErrorResponse Test")
+@Slf4j
 class ErrorResponseTest {
 
+    /**
+     * Current timestamp used for testing date-related operations.
+     */
     private static LocalDateTime now;
 
+    /**
+     * HTTP status code representing a bad request error.
+     */
+    private static final int ERROR_CODE = 400;
+
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
         now = LocalDateTime.now();
-        System.out.println("Starting ErrorResponse tests");
+        log.info("Starting ErrorResponse tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished ErrorResponse tests");
+        log.info("Finished ErrorResponse tests");
     }
 
     /**
@@ -47,7 +73,7 @@ class ErrorResponseTest {
         ErrorResponse response = ErrorResponse.builder()
                 .type("https://example.com/probs/invalid-request")
                 .title("Invalid Request")
-                .status(400)
+                .status(ERROR_CODE)
                 .detail("Validation failed")
                 .instance("/api/users")
                 .timestamp(now)
@@ -58,7 +84,7 @@ class ErrorResponseTest {
         assertAll("ErrorResponse fields",
                 () -> assertEquals("https://example.com/probs/invalid-request", response.getType()),
                 () -> assertEquals("Invalid Request", response.getTitle()),
-                () -> assertEquals(400, response.getStatus()),
+                () -> assertEquals(ERROR_CODE, response.getStatus()),
                 () -> assertEquals("Validation failed", response.getDetail()),
                 () -> assertEquals("/api/users", response.getInstance()),
                 () -> assertEquals(now, response.getTimestamp()),

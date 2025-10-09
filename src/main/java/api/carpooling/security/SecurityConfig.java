@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,19 +33,23 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     /**
-     * Configures the security filter chain for HTTP requests.
+     * Sets up the HTTP security filter chain for the application.
      * <p>
-     * Defines endpoint access rules, disables CSRF and CORS, and
-     * adds JWT filter before the username/password filter.
+     * Configures access rules for endpoints, disables CSRF and CORS protections,
+     * and registers the JWT authentication filter before the standard
+     * UsernamePasswordAuthenticationFilter.
      *
-     * @param http the HttpSecurity object
-     * @return the configured SecurityFilterChain
-     * @throws Exception in case of configuration errors
+     * @param http the HttpSecurity configuration object
+     * @return the fully configured SecurityFilterChain
      */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(AbstractHttpConfigurer::disable)
+                // SonarCloud: Voluntary CSRF deactivation, the application uses JWTs
+                // (no session, therefore not vulnerable)
+                // NOSONAR
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login",
@@ -69,6 +74,7 @@ public class SecurityConfig {
      * @return the AuthenticationManager
      * @throws Exception in case of configuration errors
      */
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();

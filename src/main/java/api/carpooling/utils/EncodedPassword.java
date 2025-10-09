@@ -10,7 +10,9 @@ public class EncodedPassword {
     /**
      * BCrypt password encoder instance.
      */
-    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
+    private EncodedPassword() { }
 
     /**
      * Encodes a raw password using BCrypt.
@@ -19,7 +21,7 @@ public class EncodedPassword {
      * @return the hashed password
      */
     public static String encode(String password) {
-        return passwordEncoder.encode(password);
+        return PASSWORD_ENCODER.encode(password);
     }
 
     /**
@@ -30,6 +32,6 @@ public class EncodedPassword {
      * @return true if the password matches, false otherwise
      */
     public static boolean isRightPassword(String password, String passwordHash) {
-        return passwordEncoder.matches(password, passwordHash);
+        return PASSWORD_ENCODER.matches(password, passwordHash);
     }
 }

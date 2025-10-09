@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Pattern;
  * @param password the password
  * @param phoneNumber the user's phone number
  */
-public record RegisterUserRequest (
+public record RegisterUserRequest(
         @NotBlank(message = "Username is required and unique")
         String username,
 
@@ -22,7 +22,8 @@ public record RegisterUserRequest (
 
         @Pattern(
                 regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-                message = "Le mot de passe doit contenir au minimum 8 caractères, avec une majuscule, une minuscule, un chiffre et un caractère spécial."
+                message = "Le mot de passe doit contenir au minimum 8 caractères, "
+                        + "avec une majuscule, une minuscule, un chiffre et un caractère spécial."
         )
         @NotBlank(message = "Password is required")
         String password,
@@ -30,4 +31,4 @@ public record RegisterUserRequest (
         @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Phone number must be valid")
         @NotBlank(message = "Phone number is required and unique")
         String phoneNumber
-) {}
+) { }

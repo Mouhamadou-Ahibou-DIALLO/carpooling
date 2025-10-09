@@ -1,10 +1,20 @@
 package api.carpooling.application.exception;
 
 import api.carpooling.exception.ErrorCode;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for {@link ExpiredRefreshTokenException}.
@@ -15,18 +25,28 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ExpiredRefreshTokenException Test")
+@Slf4j
 class ExpiredRefreshTokenExceptionTest {
 
+    /**
+     * Message used when a refresh token has expired.
+     */
     private static final String MESSAGE = "Refresh token has expired";
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("Starting ExpiredRefreshTokenException tests");
+        log.info("Starting ExpiredRefreshTokenException tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished ExpiredRefreshTokenException tests");
+        log.info("Finished ExpiredRefreshTokenException tests");
     }
 
     /**

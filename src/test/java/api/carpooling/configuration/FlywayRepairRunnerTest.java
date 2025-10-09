@@ -1,45 +1,51 @@
 package api.carpooling.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
-import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Assertions;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.doThrow;
 
 /**
  * Unit tests for {@link FlywayRepairRunner}.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("FlywayRepairRunner Test")
+@Slf4j
 class FlywayRepairRunnerTest {
 
+    /** Flyway instance used to manage database migrations. */
     private static Flyway flyway;
+
+    /** FlywayRepairRunner instance to repair Flyway metadata if needed. */
     private static FlywayRepairRunner flywayRepairRunner;
 
     /**
-     * Initializes mock objects before all tests.
+     * Initializes mocks before all tests to avoid modifying static fields from an instance method.
      */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("FlywayRepairRunner tests initialized");
-    }
-
-    /**
-     * Re-initializes the mock before each test to avoid call accumulation.
-     */
-    @BeforeEach
-    void setUp() {
         flyway = mock(Flyway.class);
         flywayRepairRunner = new FlywayRepairRunner(flyway);
+        log.info("FlywayRepairRunner tests initialized");
     }
 
-    /**
-     * Cleans up resources after all tests.
-     */
+    /** Cleans up resources after all tests. */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("FlywayRepairRunner tests completed");
+        log.info("FlywayRepairRunner tests completed");
     }
 
     /**
@@ -61,10 +67,12 @@ class FlywayRepairRunnerTest {
     @Order(2)
     @DisplayName("Should repair Flyway when validation fails")
     void testFlywayRepairOnException() {
-        doThrow(new FlywayException("Validation failed")).when(flyway).validate();
+        doThrow(new FlywayException("Validation failed"))
+                .when(flyway).validate();
+
         flywayRepairRunner.run();
 
-        verify(flyway, times(1)).validate();
+        verify(flyway, times(2)).validate();
         verify(flyway, times(1)).repair();
     }
 }

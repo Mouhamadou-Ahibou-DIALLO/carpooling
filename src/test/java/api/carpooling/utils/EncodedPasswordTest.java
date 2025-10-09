@@ -1,11 +1,18 @@
 package api.carpooling.utils;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Unit tests for {@link EncodedPassword}.
@@ -13,16 +20,24 @@ import static org.junit.jupiter.api.Assertions.*;
  * These tests verify password encoding and validation using BCrypt.
  */
 @DisplayName("EncodedPassword Test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Slf4j
 class EncodedPasswordTest {
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("Starting EncodedPassword tests");
+        log.info("Starting EncodedPassword tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished EncodedPassword tests");
+        log.info("Finished EncodedPassword tests");
     }
 
     /**
@@ -30,6 +45,7 @@ class EncodedPasswordTest {
      */
     @Test
     @DisplayName("Should encode password successfully")
+    @Order(1)
     void testEncodePassword() {
         String rawPassword = "StrongPass1@";
         String hashed = EncodedPassword.encode(rawPassword);
@@ -44,6 +60,7 @@ class EncodedPasswordTest {
      */
     @Test
     @DisplayName("Should validate correct password")
+    @Order(2)
     void testIsRightPasswordCorrect() {
         String rawPassword = "StrongPass1@";
         String hashed = EncodedPassword.encode(rawPassword);
@@ -56,6 +73,7 @@ class EncodedPasswordTest {
      */
     @Test
     @DisplayName("Should reject incorrect password")
+    @Order(3)
     void testIsRightPasswordIncorrect() {
         String rawPassword = "StrongPass1@";
         String wrongPassword = "WrongPass123!";

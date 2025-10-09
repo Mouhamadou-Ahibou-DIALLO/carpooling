@@ -1,10 +1,19 @@
 package api.carpooling.application.exception;
 
 import api.carpooling.exception.ErrorCode;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link UserExistsAlready}.
@@ -15,18 +24,28 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("UserExistsAlready Test")
+@Slf4j
 class UserExistsAlreadyTest {
 
+    /**
+     * Message used when a User already exists.
+     */
     private static final String MESSAGE = "User already exists";
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("Starting UserExistsAlready tests");
+        log.info("Starting UserExistsAlready tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished UserExistsAlready tests");
+        log.info("Finished UserExistsAlready tests");
     }
 
     /**

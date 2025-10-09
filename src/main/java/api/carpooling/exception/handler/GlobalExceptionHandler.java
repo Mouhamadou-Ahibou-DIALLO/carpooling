@@ -1,6 +1,6 @@
 package api.carpooling.exception.handler;
 
-import api.carpooling.application.exception.*;
+import api.carpooling.application.exception.ApiException;
 import api.carpooling.exception.ErrorCode;
 import api.carpooling.exception.ErrorResponse;
 import api.carpooling.utils.ErrorResponseBuilder;
@@ -34,7 +34,8 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity with ErrorResponse
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex,
+                                                          HttpServletRequest request) {
         List<ErrorResponse.ValidationError> validationErrors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()

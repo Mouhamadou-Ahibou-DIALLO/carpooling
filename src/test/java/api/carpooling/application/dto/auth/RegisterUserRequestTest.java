@@ -4,11 +4,20 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Unit tests for {@link RegisterUserRequest} DTO.
@@ -18,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Register User Request Test")
-public class RegisterUserRequestTest {
+@Slf4j
+class RegisterUserRequestTest {
 
     /**
      * Shared Validator instance used for bean validation (Jakarta Validation API).
@@ -32,7 +42,7 @@ public class RegisterUserRequestTest {
     static void setUpValidator() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-        System.out.println("Validator initialized for RegisterUserRequest");
+        log.info("Validator initialized for RegisterUserRequest");
     }
 
     /**
@@ -41,7 +51,7 @@ public class RegisterUserRequestTest {
     @AfterAll
     static void tearDownValidator() {
         validator = null;
-        System.out.println("Validator cleared");
+        log.info("Validator cleared");
     }
 
     /**

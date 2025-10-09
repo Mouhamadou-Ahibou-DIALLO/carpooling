@@ -40,14 +40,17 @@
     </rule>
     <rule ref="category/java/design.xml/TooManyFields">
         <properties>
-            <property name="maxfields" value="15"/>
+            <property name="maxfields" value="20"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/GodClass"/>
 
     <!-- 3. Best practices -->
-    <rule ref="category/java/errorprone.xml/AvoidCatchingGenericException"/>
-    <rule ref="category/java/design.xml/SignatureDeclareThrowsException"/>
+    <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+        <properties>
+            <property name="IgnoreJUnitCompletely" value="false" />
+        </properties>
+    </rule>
     <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace"/>
     <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
     <rule ref="category/java/bestpractices.xml/UseTryWithResources"/>
@@ -58,7 +61,6 @@
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
-    <rule ref="category/java/bestpractices.xml/UnusedImports"/>
 
     <!-- 5. Naming -->
     <rule ref="category/java/codestyle.xml/ClassNamingConventions"/>

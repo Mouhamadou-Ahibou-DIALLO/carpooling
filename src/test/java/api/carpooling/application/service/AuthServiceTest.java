@@ -3,7 +3,10 @@ package api.carpooling.application.service;
 import api.carpooling.application.dto.auth.LoginUserRequest;
 import api.carpooling.application.dto.auth.RegisterUserRequest;
 import api.carpooling.application.dto.user.UserDTO;
-import api.carpooling.application.exception.*;
+import api.carpooling.application.exception.UserNotFoundException;
+import api.carpooling.application.exception.UserExistsAlready;
+import api.carpooling.application.exception.PasswordNotMatchException;
+import api.carpooling.application.exception.ExpiredRefreshTokenException;
 import api.carpooling.application.mapper.UserMapper;
 import api.carpooling.application.service.impl.AuthServiceImpl;
 import api.carpooling.domain.User;
@@ -13,22 +16,36 @@ import api.carpooling.utils.EncodedPassword;
 import api.carpooling.utils.TokenGenerator;
 
 import io.jsonwebtoken.Claims;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.mock;
 
 /**
  * Unit tests for {@link AuthServiceImpl}.
@@ -39,31 +56,70 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("AuthServiceImpl Tests")
+@Slf4j
 class AuthServiceImplTest {
 
+    /**
+     * Mocked instance of {@link UserRepository} used to simulate database operations.
+     * <p>
+     * Prevents real database access during tests and allows control over returned data.
+     */
     @Mock
     private UserRepository userRepository;
 
+    /**
+     * Mocked instance of {@link UserMapper} used to convert entities to DTOs and vice versa.
+     * <p>
+     * Helps test the service logic without invoking the real mapping logic.
+     */
     @Mock
     private UserMapper userMapper;
 
+    /**
+     * Mocked instance of {@link TokenGenerator} used to simulate JWT token creation.
+     * <p>
+     * Avoids generating real tokens during service tests.
+     */
     @Mock
     private TokenGenerator tokenGenerator;
 
+    /**
+     * Injects the mocked dependencies into an instance of {@link AuthServiceImpl}.
+     * <p>
+     * This ensures that when methods of {@code AuthServiceImpl} are called,
+     * they use the mocked components instead of real implementations.
+     */
     @InjectMocks
     private AuthServiceImpl authService;
 
+    /**
+     * Represents a mock {@link User} entity used as test data.
+     * <p>
+     * Serves as a sample object for testing authentication and user-related logic.
+     */
     private User user;
+
+    /**
+     * Represents a mock {@link UserDTO} used as test data.
+     * <p>
+     * Simulates the user data transfer object typically returned by the service layer.
+     */
     private UserDTO userDTO;
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void beforeAll() {
-        System.out.println("AuthServiceImpl tests initialized");
+        log.info("AuthServiceImpl tests initialized");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void afterAll() {
-        System.out.println("AuthServiceImpl tests completed");
+        log.info("AuthServiceImpl tests completed");
     }
 
     /**

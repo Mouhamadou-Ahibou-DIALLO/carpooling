@@ -11,6 +11,16 @@ import java.util.UUID;
  * Data Transfer Object for User entity.
  * <p>
  * Used to transfer user information safely outside the application layer.
+ *
+ *  @param id           Unique identifier of the user
+ *  @param email        Email of the user
+ *  @param username     Username of the user
+ *  @param token        JWT access token
+ *  @param refreshToken JWT refresh token
+ *  @param tokenExpired Expiry date of the refresh token
+ *  @param roleUser     Role of the user
+ *  @param createdAt    Date when the user was created
+ *  @param updatedAt    Date when the user was last updated
  */
 @Schema(description = "User data transfer object")
 @Builder
@@ -41,5 +51,5 @@ public record UserDTO(
 
         @Schema(description = "Date when the user was last updated")
         LocalDateTime updatedAt
-) {}
+) { }
 

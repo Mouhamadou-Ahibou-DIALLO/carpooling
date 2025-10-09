@@ -4,13 +4,24 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.slf4j.MDC;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.anyString;
 
 /**
  * Unit tests for {@link RequestTraceFilter}.
@@ -21,19 +32,29 @@ import static org.mockito.Mockito.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RequestTraceFilter Test")
+@Slf4j
 class RequestTraceFilterTest {
 
+    /**
+     * Filter instance used to trace incoming HTTP requests during tests.
+     */
     private static RequestTraceFilter filter;
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
         filter = new RequestTraceFilter();
-        System.out.println("Starting RequestTraceFilter tests");
+        log.info("Starting RequestTraceFilter tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished RequestTraceFilter tests");
+        log.info("Finished RequestTraceFilter tests");
     }
 
     /**

@@ -6,25 +6,69 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.anyString;
 
 /**
  * Unit tests for {@link JwtAuthFilter}.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("JwtAuthFilter Test")
+@Slf4j
 class JwtAuthFilterTest {
 
+    /**
+     * Utility component responsible for generating and validating JWT tokens.
+     * <p>
+     * Used to create access and refresh tokens for authenticated users.
+     */
     private TokenGenerator tokenGenerator;
+
+    /**
+     * Custom authentication filter that intercepts HTTP requests to validate JWT tokens.
+     * <p>
+     * Ensures that only authenticated users can access protected endpoints.
+     */
     private JwtAuthFilter jwtAuthFilter;
+
+    /**
+     * Represents the current HTTP request received by the server.
+     * <p>
+     * Provides access to headers, parameters, and request body content.
+     */
     private HttpServletRequest request;
+
+    /**
+     * Represents the HTTP response sent back to the client.
+     * <p>
+     * Used to modify status codes, headers, or write content to the response body.
+     */
     private HttpServletResponse response;
+
+    /**
+     * Defines the chain of filters that process the request and response.
+     * <p>
+     * Allows continuation of the filter execution to the next filter or endpoint.
+     */
     private FilterChain filterChain;
 
     /**
@@ -45,7 +89,7 @@ class JwtAuthFilterTest {
      */
     @BeforeAll
     static void beforeAll() {
-        System.out.println("JwtAuthFilter tests initialized");
+        log.info("JwtAuthFilter tests initialized");
     }
 
     /**
@@ -53,7 +97,7 @@ class JwtAuthFilterTest {
      */
     @AfterAll
     static void afterAll() {
-        System.out.println("JwtAuthFilter tests completed");
+        log.info("JwtAuthFilter tests completed");
     }
 
     /**

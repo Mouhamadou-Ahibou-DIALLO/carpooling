@@ -2,13 +2,23 @@ package api.carpooling.utils;
 
 import api.carpooling.configuration.JwtProperties;
 import io.jsonwebtoken.Claims;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.mockito.Mockito;
 
 import java.util.Date;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
@@ -18,24 +28,50 @@ import static org.mockito.Mockito.when;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("TokenGenerator Test")
+@Slf4j
 class TokenGeneratorTest {
 
+    /**
+     * Utility component responsible for generating and validating JWT tokens.
+     * <p>
+     * Used to create access and refresh tokens for authenticated users.
+     */
     private static TokenGenerator tokenGenerator;
 
+    /**
+     * Access token expiration time in milliseconds (1 hour).
+     * <p>
+     * Used to define the validity period of JWT access tokens during tests.
+     */
+    private static final long ACCESS_TOKEN_EXPIRATION_MS = 3600000L;
+
+    /**
+     * Refresh token expiration time in milliseconds (24 hours).
+     * <p>
+     * Used to define the validity period of JWT refresh tokens during tests.
+     */
+    private static final long REFRESH_TOKEN_EXPIRATION_MS = 86400000L;
+
+    /**
+     * Initializes all mocks before each test.
+     */
     @BeforeAll
     static void setUpAll() {
         JwtProperties jwtProperties = Mockito.mock(JwtProperties.class);
         when(jwtProperties.getSecret()).thenReturn("MySuperSecretKeyForJWTsMySuperSecretKey");
-        when(jwtProperties.getExpirationMs()).thenReturn(3600000L);
-        when(jwtProperties.getRefreshExpirationMs()).thenReturn(86400000L);
+        when(jwtProperties.getExpirationMs()).thenReturn(ACCESS_TOKEN_EXPIRATION_MS);
+        when(jwtProperties.getRefreshExpirationMs()).thenReturn(REFRESH_TOKEN_EXPIRATION_MS);
 
         tokenGenerator = new TokenGenerator(jwtProperties);
-        System.out.println("Starting TokenGenerator tests");
+        log.info("Starting TokenGenerator tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished TokenGenerator tests");
+        log.info("Finished TokenGenerator tests");
     }
 
     /**

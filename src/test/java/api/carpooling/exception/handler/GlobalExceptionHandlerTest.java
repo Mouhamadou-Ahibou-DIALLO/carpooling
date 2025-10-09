@@ -3,7 +3,14 @@ package api.carpooling.exception.handler;
 import api.carpooling.application.exception.UserNotFoundException;
 import api.carpooling.exception.ErrorCode;
 import api.carpooling.exception.ErrorResponse;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,8 +21,11 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for {@link GlobalExceptionHandler}.
@@ -27,19 +37,29 @@ import static org.mockito.Mockito.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("GlobalExceptionHandler Test")
+@Slf4j
 class GlobalExceptionHandlerTest {
 
+    /**
+     * Global exception handler used to manage and test API error responses.
+     */
     private static GlobalExceptionHandler handler;
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
         handler = new GlobalExceptionHandler();
-        System.out.println("Starting GlobalExceptionHandler tests");
+        log.info("Starting GlobalExceptionHandler tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished GlobalExceptionHandler tests");
+        log.info("Finished GlobalExceptionHandler tests");
     }
 
     /**
@@ -65,7 +85,7 @@ class GlobalExceptionHandlerTest {
         assertNotNull(response.getBody());
         assertEquals(ErrorCode.VALIDATION_ERROR, response.getBody().getErrorCode());
         assertEquals(1, response.getBody().getErrors().size());
-        assertEquals("field1", response.getBody().getErrors().get(0).getField());
+        assertEquals("field1", response.getBody().getErrors().getFirst().getField());
     }
 
     /**

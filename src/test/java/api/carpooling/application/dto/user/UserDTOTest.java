@@ -1,12 +1,23 @@
 package api.carpooling.application.dto.user;
 
 import api.carpooling.domain.enumeration.RoleUser;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
  * Unit tests for {@link UserDTO}.
@@ -14,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("UserDTO Test")
+@Slf4j
 class UserDTOTest {
 
     /**
@@ -21,7 +33,7 @@ class UserDTOTest {
      */
     @BeforeAll
     static void beforeAll() {
-        System.out.println("Before All");
+        log.info("Before All");
     }
 
     /**
@@ -29,7 +41,7 @@ class UserDTOTest {
      */
     @AfterAll
     static void afterAll() {
-        System.out.println("All UserDTO tests completed.");
+        log.info("All UserDTO tests completed.");
     }
 
     /**

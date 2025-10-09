@@ -1,11 +1,20 @@
 package api.carpooling.application.exception;
 
 import api.carpooling.exception.ErrorCode;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link ApiException}.
@@ -16,18 +25,28 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ApiException Test")
+@Slf4j
 class ApiExceptionTest {
 
+    /**
+     * Message used when a Test exception message.
+     */
     private static final String MESSAGE = "Test exception message";
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("Starting ApiException tests");
+        log.info("Starting ApiException tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished ApiException tests");
+        log.info("Finished ApiException tests");
     }
 
     /**
@@ -62,7 +81,6 @@ class ApiExceptionTest {
     @Order(2)
     @DisplayName("Should be a RuntimeException")
     void testInstanceOfRuntimeException() {
-        TestApiException ex = new TestApiException(MESSAGE, ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
         assertTrue(true, "ApiException should extend RuntimeException");
     }
 }

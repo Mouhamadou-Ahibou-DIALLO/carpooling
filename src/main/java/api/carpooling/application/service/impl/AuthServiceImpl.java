@@ -50,8 +50,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDTO register(RegisterUserRequest request) {
-        if (userRepository.existsByEmail(request.email()) ||
-                userRepository.existsByUsername(request.username())) {
+        if (userRepository.existsByEmail(request.email())
+                || userRepository.existsByUsername(request.username())) {
             log.error("Username or Email already exists");
             throw new UserExistsAlready("User already exists with email or username");
         }

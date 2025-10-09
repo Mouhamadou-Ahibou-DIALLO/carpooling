@@ -1,12 +1,23 @@
 package api.carpooling.domain;
 
 import api.carpooling.domain.enumeration.RoleUser;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterEach;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Unit tests for the {@link User} entity.
@@ -16,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @DisplayName("User Entity Test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserTest {
+@Slf4j
+class UserTest {
 
     /**
      * Represents the user associated with this entity
@@ -46,7 +58,7 @@ public class UserTest {
                 .isVerified(false)
                 .roleUser(RoleUser.ROLE_DRIVER)
                 .build();
-        System.out.println("User instance initialized before test");
+        log.info("User instance initialized before test");
     }
 
     /**
@@ -57,7 +69,7 @@ public class UserTest {
     @DisplayName("Should run after each test")
     void tearDown() {
         user = null;
-        System.out.println("User instance cleared after test");
+        log.info("User instance cleared after test");
     }
 
     /**

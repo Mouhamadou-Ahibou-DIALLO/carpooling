@@ -7,7 +7,15 @@ import api.carpooling.application.service.AuthService;
 import api.carpooling.domain.enumeration.RoleUser;
 import api.carpooling.utils.TokenGenerator;
 
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +33,10 @@ import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 /**
  * Integration tests for {@link AuthController}.
@@ -36,33 +45,59 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(
         controllers = AuthController.class,
         excludeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = api.carpooling.security.JwtAuthFilter.class)
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                        value = api.carpooling.security.JwtAuthFilter.class)
         }
 )
 @AutoConfigureMockMvc(addFilters = false)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("AuthController REST API Tests")
+@Slf4j
 class AuthControllerTest {
 
+    /**
+     * MockMvc instance used to perform HTTP requests in tests without starting a full server.
+     * <p>
+     * Allows simulation of REST API calls and validation of controller behavior.
+     */
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Mocked instance of {@link AuthService} for simulating authentication logic in tests.
+     * <p>
+     * Prevents real service calls and allows precise control over returned data.
+     */
     @MockitoBean
     private AuthService authService;
 
+    /**
+     * Mocked instance of {@link TokenGenerator} used to simulate JWT token creation and validation.
+     * <p>
+     * Avoids generating real tokens during testing.
+     */
     @MockitoBean
     private TokenGenerator tokenGenerator;
 
+    /**
+     * Sample {@link UserDTO} object used as test data in authentication tests.
+     */
     private UserDTO userDTO;
 
+    /**
+     * Initializes all mocks before each test.
+     */
     @BeforeAll
     static void beforeAll() {
-        System.out.println("Starting AuthController tests...");
+        log.info("Starting AuthController tests...");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void afterAll() {
-        System.out.println("AuthController tests completed!");
+        log.info("AuthController tests completed!");
     }
 
     /**
@@ -144,7 +179,7 @@ class AuthControllerTest {
     @Order(3)
     @DisplayName("POST /api/v1/auth/refresh_token - should refresh token successfully")
     void testRefreshTokenSuccess() throws Exception {
-        Mockito.when(authService.refreshToken(eq("refresh.token"))).thenReturn(userDTO);
+        Mockito.when(authService.refreshToken("refresh.token")).thenReturn(userDTO);
 
         mockMvc.perform(post("/api/v1/auth/refresh_token")
                         .param("refreshToken", "refresh.token"))
@@ -152,7 +187,7 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.username", is("TestUser")))
                 .andExpect(jsonPath("$.token", is("jwt.token")));
 
-        Mockito.verify(authService, Mockito.times(1)).refreshToken(eq("refresh.token"));
+        Mockito.verify(authService, Mockito.times(1)).refreshToken("refresh.token");
     }
 
     /**
@@ -162,7 +197,7 @@ class AuthControllerTest {
     @Order(4)
     @DisplayName("GET /api/v1/auth/me - should return current user profile")
     void testMeSuccess() throws Exception {
-        Mockito.when(authService.me(eq("Bearer jwt.token"))).thenReturn(userDTO);
+        Mockito.when(authService.me("Bearer jwt.token")).thenReturn(userDTO);
 
         mockMvc.perform(get("/api/v1/auth/me")
                         .header("Authorization", "Bearer jwt.token"))
@@ -170,6 +205,6 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.username", is("TestUser")))
                 .andExpect(jsonPath("$.email", is("test@example.com")));
 
-        Mockito.verify(authService, Mockito.times(1)).me(eq("Bearer jwt.token"));
+        Mockito.verify(authService, Mockito.times(1)).me("Bearer jwt.token");
     }
 }

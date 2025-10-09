@@ -2,11 +2,19 @@ package api.carpooling.utils;
 
 import api.carpooling.exception.ErrorCode;
 import api.carpooling.exception.ErrorResponse;
-import org.junit.jupiter.api.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link ErrorResponseBuilder}.
@@ -15,16 +23,23 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ErrorResponseBuilder Test")
+@Slf4j
 class ErrorResponseBuilderTest {
 
+    /**
+     * Displays start message before all tests.
+     */
     @BeforeAll
     static void setUpAll() {
-        System.out.println("Starting ErrorResponseBuilder tests");
+        log.info("Starting ErrorResponseBuilder tests");
     }
 
+    /**
+     * Displays message after all tests.
+     */
     @AfterAll
     static void tearDownAll() {
-        System.out.println("Finished ErrorResponseBuilder tests");
+        log.info("Finished ErrorResponseBuilder tests");
     }
 
     /**
