@@ -86,24 +86,6 @@ Monitoring & Health (Actuator)
 
 ---
 
-## 🎨 Frontend
-
-Installation et démarrage
-
-```bash
-# Se déplacer dans le dossier frontend
-cd carpooling-frontend
-
-# Installer les dépendances
-npm install
-
-# Lancer le projet
-npm start
-```
-👉 Par défaut, l’application frontend est accessible sur http://localhost:3000.
-
----
-
 ## ⚙️ CI/CD & Qualité du code
 
 Le projet est équipé d’un pipeline CI/CD complète avec :
