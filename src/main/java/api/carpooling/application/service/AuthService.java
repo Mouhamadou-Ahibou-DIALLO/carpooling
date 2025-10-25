@@ -40,4 +40,12 @@ public interface AuthService {
      * @return UserDTO of the authenticated user
      */
     UserDTO me(String token);
+
+    /**
+     * logout user with authenticated token
+     *
+     * @param token JWT token from Authorization header
+     * user logout
+     */
+    void logout(String token);
 }

@@ -27,6 +27,7 @@ sudo apt install jq
 2. **Login** : `/api/v1/auth/login`
 3. **Refresh Token** : `/api/v1/auth/refresh_token`
 4. **Me** : `/api/v1/auth/me`
+5. **Logout** : `/api/v1/auth/logout`
 
 ---
 
@@ -48,7 +49,7 @@ chmod +x test_auth.sh
 ```
 
 Le script va afficher les réponses JSON de chaque endpoint et extraire automatiquement le JWT
-et le refresh token pour tester **refresh_token** et **me**.
+et le refresh token pour tester **refresh_token**, **me** et **logout**.
 
 ## Dépendances
 

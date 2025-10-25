@@ -20,10 +20,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * REST controller for user authentication.
  * <p>
- * Provides endpoints for registration, login, token refresh, and
+ * Provides endpoints for registration, login, logout, token refresh, and
  * fetching the current authenticated user's profile.
  */
 @RestController
@@ -66,6 +70,26 @@ public class AuthController {
     public ResponseEntity<UserDTO> login(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         UserDTO userDTO = authService.login(loginUserRequest);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    /**
+     * logout user with authenticated token
+     *
+     * @param token JWT token from Authorization header
+     * user logout
+     * @return map content : message : User logout successfully and timestamp
+     */
+    @PostMapping("/logout")
+    @Operation(summary = "Logout user", description = "Invalidate the current user's token and refresh token")
+    @ApiResponse(responseCode = "200", description = "User logout successfully")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "404", description = "User not found")
+    public ResponseEntity<Map<String, Object>> logout(@RequestHeader("Authorization") String token) {
+        authService.logout(token);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "User logout successfully");
+        response.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.ok(response);
     }
 
     /**

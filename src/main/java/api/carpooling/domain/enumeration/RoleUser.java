@@ -12,8 +12,5 @@ public enum RoleUser {
     ROLE_PASSENGER,
 
     /** Administrator with elevated privileges */
-    ROLE_ADMIN,
-
-    /** Super administrator with full system access */
-    ROLE_SUPER_ADMIN
+    ROLE_ADMIN
 }

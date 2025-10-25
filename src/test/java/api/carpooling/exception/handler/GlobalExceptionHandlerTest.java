@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("GlobalExceptionHandler Test")
 @Slf4j
-class GlobalExceptionHandlerTest {
+public class GlobalExceptionHandlerTest {
 
     /**
      * Global exception handler used to manage and test API error responses.

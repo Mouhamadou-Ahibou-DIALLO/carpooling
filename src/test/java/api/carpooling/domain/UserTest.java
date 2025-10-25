@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @DisplayName("User Entity Test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
-class UserTest {
+public class UserTest {
 
     /**
      * Represents the user associated with this entity

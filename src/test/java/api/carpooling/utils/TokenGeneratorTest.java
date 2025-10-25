@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("TokenGenerator Test")
 @Slf4j
-class TokenGeneratorTest {
+public class TokenGeneratorTest {
 
     /**
      * Utility component responsible for generating and validating JWT tokens.

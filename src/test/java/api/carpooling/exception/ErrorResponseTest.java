@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ErrorResponse Test")
 @Slf4j
-class ErrorResponseTest {
+public class ErrorResponseTest {
 
     /**
      * Current timestamp used for testing date-related operations.

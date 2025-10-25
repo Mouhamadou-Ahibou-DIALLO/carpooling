@@ -24,7 +24,7 @@ import static org.mockito.Mockito.doThrow;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("FlywayRepairRunner Test")
 @Slf4j
-class FlywayRepairRunnerTest {
+public class FlywayRepairRunnerTest {
 
     /** Flyway instance used to manage database migrations. */
     private static Flyway flyway;

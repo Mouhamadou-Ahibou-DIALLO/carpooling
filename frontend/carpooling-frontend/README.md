@@ -36,6 +36,6 @@ npm start
 
 - Le frontend sera accessible sur : http://localhost:3000
 
-- Les modifications sont hot-reloadées automatiquement.
+- Les modifications sont hot-reloads automatiquement.
 
 ---

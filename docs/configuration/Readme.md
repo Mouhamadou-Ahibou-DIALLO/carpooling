@@ -69,3 +69,16 @@ Lancer seulement les tests et générer JaCoCo
 - Les rapports XML sont utilisés par les outils CI/CD comme SonarCloud ou Jenkins.
 
 - Toute anomalie détectée par Checkstyle, PMD ou SpotBugs doit être corrigée pour garantir que le Quality Gate passe.
+
+---
+
+## Générer la documentation du package api.carpooling
+
+Pour générer la documentation de toutes les classes, y compris les tests.
+Elle inclut tous les membres, même les attributs et méthodes privées. Utilisez cette commande :
+
+```bash
+./gradlew javadocWithTest
+```
+
+La documentation sera disponible dans : `build/docs/javadoc-with-tests` sur le fichier **index.html** dont tu peux le superviser sur un navigateur.

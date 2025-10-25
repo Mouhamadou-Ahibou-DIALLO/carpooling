@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("ErrorResponseBuilder Test")
 @Slf4j
-class ErrorResponseBuilderTest {
+public class ErrorResponseBuilderTest {
 
     /**
      * Displays start message before all tests.

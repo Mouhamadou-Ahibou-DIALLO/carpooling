@@ -8,6 +8,7 @@ Cette collection Postman (`auth_api.json`) contient **10 tests** pour l'API d'au
 - **POST /api/v1/auth/login** : Connexion avec email + mot de passe.
 - **POST /api/v1/auth/refresh** : Rafraîchir un access token via le refresh token.
 - **GET /api/v1/auth/me** : Récupérer les infos de l'utilisateur connecté.
+- **POST /api/v1/auth/logout** : Supprimer les credentials de l'utilisateur (token, refresh_token)
 
 ## Variables à configurer dans Postman
 
@@ -44,4 +45,4 @@ Dans l'onglet **Environnement** de Postman, configurez les variables suivantes :
 ## Notes
 
 - Le champ `token` et `refreshToken` sont automatiquement sauvegardés dans les variables Postman après un login réussi.
-- Vous pouvez ensuite appeler les endpoints protégés (`/me`) sans réécrire le token manuellement.
+- Vous pouvez ensuite appeler les endpoints protégés (`/me`) et (`/logout`) sans réécrire le token manuellement.

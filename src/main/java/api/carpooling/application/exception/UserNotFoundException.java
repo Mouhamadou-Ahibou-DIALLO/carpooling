@@ -1,5 +1,6 @@
 package api.carpooling.application.exception;
 
+import api.carpooling.application.exception.api.ApiException;
 import api.carpooling.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 

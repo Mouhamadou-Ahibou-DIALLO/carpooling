@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Register User Request Test")
 @Slf4j
-class RegisterUserRequestTest {
+public class RegisterUserRequestTest {
 
     /**
      * Shared Validator instance used for bean validation (Jakarta Validation API).

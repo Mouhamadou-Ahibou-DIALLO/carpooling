@@ -1,5 +1,6 @@
 package api.carpooling.application.exception;
 
+import api.carpooling.application.exception.api.ApiException;
 import api.carpooling.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("UserExistsAlready Test")
 @Slf4j
-class UserExistsAlreadyTest {
+public class UserExistsAlreadyTest {
 
     /**
      * Message used when a User already exists.

@@ -161,6 +161,40 @@ Remarque : le password n’est jamais renvoyé dans les réponses.
 }
 ```
 
+## 5) Logout (déconnexion de l’utilisateur connecté)
+
+- URL : POST /api/v1/auth/logout
+
+- Paramètre : Authorization Header
+
+    - Doit contenir le JWT dans le format :
+
+   ```makefile
+   Authorization: Bearer TON_JWT_ICI
+  ```
+
+- Exemple :
+
+ ```bash
+ curl -X GET "http://localhost:8080/api/v1/auth/logout" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNGY5MjQ4OS00OWM2LTQ3ZmUtODE4Mi0zMDExNGM4NjRmOGMiLCJyb2xlX3VzZXIiOiJST0xFX1BBU1NFTkdFUiIsImlhdCI6MTc1OTcxMzA0NiwiZXhwIjoxNzU5NzE2NjQ2fQ.8-ZUamamAfengpvtOWPEipIWjBjYHaG989BPQd6CWE0"
+  ```
+
+- Comportement :
+    - Vérifie que le JWT est valide et correspond à un utilisateur existant.
+    - Invalide le token actuel en le supprimant ou en le révoquant côté base de données.
+    - Supprime aussi le refresh_token pour forcer une reconnexion totale.
+    - Met à jour le champ token et refresh_token à NULL ou à une valeur révoquée.
+
+- Réponse (200 OK)
+
+ ```bash
+ {
+  "message": "User logged out successfully",
+  "timestamp": "2025-10-13T22:47:12"
+}
+```
+
 ---
 
 ## Erreurs & format standardisé (exemples)

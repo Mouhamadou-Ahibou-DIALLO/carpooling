@@ -60,3 +60,13 @@ curl -s -X GET "$BASE_URL/me" \
 -H "Content-Type: application/json" | jq
 
 echo -e "\n"
+
+# ----------------------
+# 4) Logout Endpoint
+# ----------------------
+echo "----- LOGOUT -----"
+curl -s -X POST "$BASE_URL/logout" \
+-H "Authorization: Bearer $JWT" \
+-H "Content-Type: application/json" | jq
+
+echo -e "\n"

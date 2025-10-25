@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("UserDTO Test")
 @Slf4j
-class UserDTOTest {
+public class UserDTOTest {
 
     /**
      * Runs once before all tests.

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  */
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
-class CarpoolingApplicationTests {
+public class CarpoolingApplicationTests {
 
     /**
      * Validates that the Spring application context starts successfully.

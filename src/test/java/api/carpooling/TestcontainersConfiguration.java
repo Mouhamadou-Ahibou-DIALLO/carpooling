@@ -14,7 +14,7 @@ import org.testcontainers.utility.DockerImageName;
  * for PostgreSQL and Redis, ensuring isolated and reproducible test environments.
  */
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfiguration {
+public class TestcontainersConfiguration {
 
     /**
      * Default Redis port used for containerized tests.

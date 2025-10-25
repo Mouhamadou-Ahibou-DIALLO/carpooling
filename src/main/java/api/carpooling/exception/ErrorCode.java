@@ -25,4 +25,16 @@ public enum ErrorCode {
 
     /** Provided password is invalid. */
     AUTH_PASSWORD_INVALID,
+
+    /** The requested user was not active in the system. */
+    USER_NOT_ACTIVE,
+
+    /** The requested user was not verified in the system. */
+    USER_NOT_VERIFIED,
+
+    /** access forbidden for user **/
+    FORBIDDEN,
+
+    /** Invalid token **/
+    INVALID_TOKEN
 }

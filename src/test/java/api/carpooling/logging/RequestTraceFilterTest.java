@@ -33,7 +33,7 @@ import static org.mockito.Mockito.anyString;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RequestTraceFilter Test")
 @Slf4j
-class RequestTraceFilterTest {
+public class RequestTraceFilterTest {
 
     /**
      * Filter instance used to trace incoming HTTP requests during tests.

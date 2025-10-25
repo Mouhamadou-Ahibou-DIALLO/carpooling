@@ -1,0 +1,111 @@
+{
+  "info": {
+    "name": "Admin API - Postman Collection",
+    "_postman_id": "admin-api-collection",
+    "description": "Collection Postman pour tester l'API Admin",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET All Users",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin", "host": ["{{baseUrl}}"], "path": ["admin"] }
+      },
+      "response": []
+    },
+    {
+      "name": "GET User By Email - Success",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/{{emailUser}}", "host": ["{{baseUrl}}"], "path": ["admin", "{{emailUser}}"] }
+      },
+      "response": []
+    },
+    {
+      "name": "GET User By Email - Not Found",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/notfound@example.com", "host": ["{{baseUrl}}"], "path": ["admin", "notfound@example.com"] }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update User Role/Active - Success",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/{{emailUser}}", "host": ["{{baseUrl}}"], "path": ["admin", "{{emailUser}}"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"roleUser\": \"ROLE_DRIVER\", \"isActive\": true }"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update User Role/Active - User Not Found",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/notfound@example.com", "host": ["{{baseUrl}}"], "path": ["admin", "notfound@example.com"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"roleUser\": \"ROLE_DRIVER\", \"isActive\": true }"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE User - Success",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/{{emailUser}}", "host": ["{{baseUrl}}"], "path": ["admin", "{{emailUser}}"] }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE User - Not Found",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}", "type": "text" }
+        ],
+        "url": { "raw": "{{baseUrl}}/admin/notfound@example.com", "host": ["{{baseUrl}}"], "path": ["admin", "notfound@example.com"] }
+      },
+      "response": []
+    },
+    {
+      "name": "All Admin Endpoints - Unauthorized (No Token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/admin", "host": ["{{baseUrl}}"], "path": ["admin"] }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api/v1" },
+    { "key": "adminToken", "value": "" },
+    { "key": "emailUser", "value": "user@example.com" }
+  ]
+}

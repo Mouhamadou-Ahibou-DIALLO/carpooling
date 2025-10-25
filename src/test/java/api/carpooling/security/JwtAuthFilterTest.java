@@ -34,7 +34,7 @@ import static org.mockito.Mockito.anyString;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("JwtAuthFilter Test")
 @Slf4j
-class JwtAuthFilterTest {
+public class JwtAuthFilterTest {
 
     /**
      * Utility component responsible for generating and validating JWT tokens.

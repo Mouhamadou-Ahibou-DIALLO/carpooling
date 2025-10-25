@@ -167,6 +167,16 @@ tasks.named('check') {
     dependsOn 'jacocoTestReport'
 }
 
+tasks.register('javadocWithTests', Javadoc) {
+    source = sourceSets.main.allJava + sourceSets.test.allJava
+    classpath = sourceSets.main.compileClasspath + sourceSets.test.compileClasspath
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.addStringOption('Xdoclint:none', '-quiet')
+    destinationDir = file("${buildDir}/docs/javadoc-with-tests")
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+}
+
 tasks.named('test') {
     outputs.dir snippetsDir
     useJUnitPlatform()

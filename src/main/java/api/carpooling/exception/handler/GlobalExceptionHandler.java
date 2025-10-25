@@ -1,6 +1,6 @@
 package api.carpooling.exception.handler;
 
-import api.carpooling.application.exception.ApiException;
+import api.carpooling.application.exception.api.ApiException;
 import api.carpooling.exception.ErrorCode;
 import api.carpooling.exception.ErrorResponse;
 import api.carpooling.utils.ErrorResponseBuilder;

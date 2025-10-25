@@ -1,5 +1,6 @@
 package api.carpooling.application.exception;
 
+import api.carpooling.application.exception.api.ApiException;
 import api.carpooling.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("PasswordNotMatchException Test")
 @Slf4j
-class PasswordNotMatchExceptionTest {
+public class PasswordNotMatchExceptionTest {
 
     /**
      * Message used when a Password does not match.

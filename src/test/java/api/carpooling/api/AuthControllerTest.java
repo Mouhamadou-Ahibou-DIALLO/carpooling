@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("AuthController REST API Tests")
 @Slf4j
-class AuthControllerTest {
+public class AuthControllerTest {
 
     /**
      * MockMvc instance used to perform HTTP requests in tests without starting a full server.
@@ -112,6 +112,7 @@ class AuthControllerTest {
                 "jwt.token",
                 "refresh.token",
                 LocalDateTime.now().plusDays(7),
+                LocalDateTime.now(),
                 RoleUser.ROLE_PASSENGER,
                 LocalDateTime.now().minusDays(1),
                 LocalDateTime.now()
@@ -173,7 +174,7 @@ class AuthControllerTest {
     }
 
     /**
-     * Teste la route / refresh_token avec un token valid.
+     * Test the /refresh_token route with a valid token.
      */
     @Test
     @Order(3)
@@ -191,7 +192,7 @@ class AuthControllerTest {
     }
 
     /**
-     * Teste la route /me avec un header Authorization valide.
+     * Test the /me route with a valid authorization header.
      */
     @Test
     @Order(4)
@@ -206,5 +207,23 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.email", is("test@example.com")));
 
         Mockito.verify(authService, Mockito.times(1)).me("Bearer jwt.token");
+    }
+
+    /**
+     * Test the /logout route with a valid authorization header.
+     */
+    @Test
+    @Order(5)
+    @DisplayName("POST /api/v1/auth/logout - should logout successfully")
+    void testLogoutSuccess() throws Exception {
+        Mockito.doNothing().when(authService).logout("Bearer jwt.token");
+
+        mockMvc.perform(post("/api/v1/auth/logout")
+                        .header("Authorization", "Bearer jwt.token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is("User logout successfully")))
+                .andExpect(jsonPath("$.timestamp").exists());
+
+        Mockito.verify(authService, Mockito.times(1)).logout("Bearer jwt.token");
     }
 }

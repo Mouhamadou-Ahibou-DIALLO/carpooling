@@ -1,0 +1,160 @@
+{
+  "info": {
+    "name": "Carpooling API - User Tests",
+    "_postman_id": "f2a7f9e3-0e4d-4b63-82f5-90e1d6d1f2bc",
+    "description": "Collection Postman pour tester toutes les routes de l’API User, incluant les cas d’erreur.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Complete User Profile (Success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"photoUser\": \"https://example.com/photo.jpg\",\n  \"address\": \"Dakar, Sénégal\",\n  \"roleUser\": \"ROLE_DRIVER\",\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "user", "complete"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Complete User Profile (Unauthorized - Missing Token)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"photoUser\": \"https://example.com/photo.jpg\",\n  \"address\": \"Dakar\",\n  \"roleUser\": \"ROLE_DRIVER\",\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Complete User Profile (Forbidden - Try to set ADMIN)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"photoUser\": \"https://example.com/photo.jpg\",\n  \"address\": \"Dakar\",\n  \"roleUser\": \"ROLE_ADMIN\",\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User (Success)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"updated_user\",\n  \"email\": \"updated@example.com\",\n  \"phoneNumber\": \"770000001\"\n, \"password\": \"Test1957@\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User (Bad Request - Already Exists)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"existing_username\",\n  \"email\": \"existing@example.com\",\n  \"phoneNumber\": \"770000000\"\n, \"password\": \"Test1957@\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User (Unauthorized - No Token)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"test_no_token\",\n  \"email\": \"no_token@example.com\",\n  \"phoneNumber\": \"770123456\"\n, \"password\": \"Test1957@\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User (Success)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User (Unauthorized)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User (Not Found - Already Deleted)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token_deleted}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/user"
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "jwt_token", "value": "PASTE_VALID_JWT_HERE" },
+    { "key": "jwt_token_deleted", "value": "PASTE_OLD_DELETED_USER_JWT" }
+  ]
+}

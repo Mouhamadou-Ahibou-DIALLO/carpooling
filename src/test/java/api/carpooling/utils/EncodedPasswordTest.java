@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @DisplayName("EncodedPassword Test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
-class EncodedPasswordTest {
+public class EncodedPasswordTest {
 
     /**
      * Displays start message before all tests.

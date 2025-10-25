@@ -18,6 +18,7 @@ import java.util.UUID;
  *  @param token        JWT access token
  *  @param refreshToken JWT refresh token
  *  @param tokenExpired Expiry date of the refresh token
+ *  @param lastLogin Last login date of the current user
  *  @param roleUser     Role of the user
  *  @param createdAt    Date when the user was created
  *  @param updatedAt    Date when the user was last updated
@@ -25,7 +26,8 @@ import java.util.UUID;
 @Schema(description = "User data transfer object")
 @Builder
 public record UserDTO(
-        @Schema(description = "Unique identifier of the user", example = "e7a1f6f8-1c88-4b5b-a0e7-df30f4bfc5d3")
+        @Schema(description = "Unique identifier of the user",
+                example = "e7a1f6f8-1c88-4b5b-a0e7-df30f4bfc5d3")
         UUID id,
 
         @Schema(description = "Email of the user", example = "john@mail.com")
@@ -42,6 +44,9 @@ public record UserDTO(
 
         @Schema(description = "Expiry date of the refresh token")
         LocalDateTime tokenExpired,
+
+        @Schema(description = "Last login date of the current user")
+        LocalDateTime lastLogin,
 
         @Schema(description = "Role of the user")
         RoleUser roleUser,
