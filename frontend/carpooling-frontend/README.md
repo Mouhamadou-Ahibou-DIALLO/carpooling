@@ -13,9 +13,6 @@ Ce projet est le frontend React de l’application Carpooling.
 1. Lancer avec Docker (Se placer à la racine du projet)
 
 ```bash
-# Se déplacer dans le dossier frontend/carpooling-frontend
-cd frontend/carpooling-frontend
-
 # lancer l'application
 docker-compose up --build
 ```
@@ -26,9 +23,6 @@ docker-compose up --build
 2. Lancer en local (sans Docker, dans la racine du projet)
 
 ```bash
-# Se déplacer dans le dossier frontend/carpooling-frontend
-cd frontend/carpooling-frontend
-
 # lancer l'application
 npm install
 npm start
