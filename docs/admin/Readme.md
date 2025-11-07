@@ -1,6 +1,6 @@
-# 🛡️ Documentation API Administrateur (`/api/v1/admin`)
+# Documentation API Administrateur (`/api/v1/admin`)
 
-## 🧩 Description
+## Description
 Cette section de l’API est réservée aux **administrateurs** et permet :
 - De **consulter** la liste des utilisateurs.
 - De **modifier** le rôle ou l’état d’un utilisateur (activation/désactivation).
@@ -11,7 +11,7 @@ Toutes les routes exigent que le token JWT contienne le rôle **`ROLE_ADMIN`**.
 
 ---
 
-## 🔐 Autorisation
+## Autorisation
 - Accessible **uniquement** aux utilisateurs ayant `ROLE_ADMIN`.
 - Le header `Authorization` doit être présent pour chaque requête :
   ```http
@@ -20,13 +20,13 @@ Toutes les routes exigent que le token JWT contienne le rôle **`ROLE_ADMIN`**.
 
 ---
 
-## 🧭 Endpoints disponibles
+## Endpoints disponibles
 
-### 1️⃣ Récupérer la liste de tous les utilisateurs
+### 1. Récupérer la liste de tous les utilisateurs
 
 `GET /api/v1/admin`
 
-### 📝 Description
+### Description
 
 Retourne une liste paginée de tous les utilisateurs enregistrés.
 
@@ -37,7 +37,7 @@ Retourne une liste paginée de tous les utilisateurs enregistrés.
 | `page` | int  | 0      | Numéro de la page          |
 | `size` | int  | 20     | Nombre d’éléments par page |
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -65,7 +65,7 @@ Retourne une liste paginée de tous les utilisateurs enregistrés.
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                        |
 | ---- | ------------- | ----------------------------- |
@@ -74,15 +74,15 @@ Retourne une liste paginée de tous les utilisateurs enregistrés.
 
 ---
 
-### 2️⃣ Récupérer un utilisateur par email
+### 2. Récupérer un utilisateur par email
 
 `GET /api/v1/admin/{email}`
 
-### 📝 Description
+### Description
 
 Retourne un utilisateur correspondant à l’adresse email fournie.
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -94,7 +94,7 @@ Retourne un utilisateur correspondant à l’adresse email fournie.
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                                  |
 | ---- | ------------- | --------------------------------------- |
@@ -104,15 +104,15 @@ Retourne un utilisateur correspondant à l’adresse email fournie.
 
 ---
 
-### 3️⃣ Modifier le rôle ou l’état d’un utilisateur
+### 3. Modifier le rôle ou l’état d’un utilisateur
 
 `PUT /api/v1/admin/{email}`
 
-### 📝 Description
+### Description
 
 Permet à un administrateur de modifier le rôle ou l’état (isActive) d’un utilisateur.
 
-### 📦 Corps de la requête
+### Corps de la requête
 
 ```json
 {
@@ -121,7 +121,7 @@ Permet à un administrateur de modifier le rôle ou l’état (isActive) d’un 
 }
 ```
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -133,7 +133,7 @@ Permet à un administrateur de modifier le rôle ou l’état (isActive) d’un 
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                        |
 | ---- | ------------- | ----------------------------- |
@@ -144,15 +144,15 @@ Permet à un administrateur de modifier le rôle ou l’état (isActive) d’un 
 
 ---
 
-### 4️⃣ Supprimer un utilisateur
+### 4. Supprimer un utilisateur
 
 `DELETE /api/v1/admin/{email}`
 
-### 📝 Description
+### Description
 
 Supprime un utilisateur du système.
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -161,7 +161,7 @@ Supprime un utilisateur du système.
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                        |
 | ---- | ------------- | ----------------------------- |
@@ -171,7 +171,7 @@ Supprime un utilisateur du système.
 
 ---
 
-## 🧪 Tests disponibles
+## Tests disponibles
 
 Des fichiers de test sont fournis pour valider les endpoints administrateur :
 
@@ -185,7 +185,7 @@ Permet d’exécuter les tests rapidement via un script shell.
 
 ---
 
-## 🧠 Notes techniques
+## Notes techniques
 
 - Seuls les utilisateurs avec le rôle `ROLE_ADMIN` peuvent accéder à ces endpoints.
 

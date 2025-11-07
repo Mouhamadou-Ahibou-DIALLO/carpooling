@@ -1,4 +1,4 @@
-# 🧑‍💼 Admin API - Postman Collection
+# Admin API - Postman Collection
 
 Cette collection Postman (`admin_api.json`) contient **4 endpoints principaux** pour l’administration des utilisateurs via `/api/v1/admin`.
 
@@ -36,7 +36,7 @@ Cette collection Postman (`admin_api.json`) contient **4 endpoints principaux** 
 
 ---
 
-## 🧪 Liste des tests
+## Liste des tests
 
 | # | Endpoint | Méthode | Cas testé | Code attendu |
 |--|-----------|----------|-----------|---------------|
@@ -57,7 +57,7 @@ Cette collection Postman (`admin_api.json`) contient **4 endpoints principaux** 
 
 ---
 
-## 🧾 Résultats attendus
+## Résultats attendus
 
 | Cas | Résultat attendu |
 |------|------------------|
@@ -81,7 +81,7 @@ Le champ isActive désactive ou réactive un compte utilisateur.
 
 ---
 
-## 💡 Conseil
+## Conseil
 Tu peux exécuter les tests en série via Postman Runner ou Newman :
 ```bash
 newman run admin_api.postman_collection.json -e postman_environment.json

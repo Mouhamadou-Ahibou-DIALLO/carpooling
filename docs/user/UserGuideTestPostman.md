@@ -1,6 +1,6 @@
-# 🧭 Guide de test Postman — API User
+# Guide de test Postman — API User
 
-## 🎯 Objectif
+## Objectif
 Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 - Compléter son profil
 - Mettre à jour ses informations
@@ -8,7 +8,7 @@ Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 
 ---
 
-## ⚙️ Pré-requis
+## Pré-requis
 - Postman installé
 - Serveur backend lancé sur `http://localhost:8080`
 - Variable d’environnement :
@@ -18,7 +18,7 @@ Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 
 ---
 
-## 📂 Importation de la collection
+## Importation de la collection
 
 1. Ouvre Postman
 2. Clique sur **Import** → choisis le fichier  
@@ -27,7 +27,7 @@ Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 
 ---
 
-## 🧪 Liste des tests
+## Liste des tests
 
 | # | Endpoint | Méthode | Cas testé | Code attendu |
 |--|---------|----------|-----------|---------------|
@@ -43,7 +43,7 @@ Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 
 ---
 
-## 🧾 Résultats attendus
+## Résultats attendus
 
 | Cas | Résultat attendu |
 |------|------------------|
@@ -55,7 +55,7 @@ Ce guide permet de tester toutes les routes liées à un **utilisateur** :
 
 ---
 
-## 💡 Conseil
+## Conseil
 Tu peux exécuter les tests en série via Postman Runner ou Newman :
 ```bash
 newman run user_api.postman_collection.json -e postman_environment.json

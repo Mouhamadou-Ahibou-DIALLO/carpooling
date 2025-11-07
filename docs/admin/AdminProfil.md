@@ -1,6 +1,6 @@
-# 🧑‍💼 Documentation Administrateur — Application Carpooling
+# Documentation Administrateur — Application Carpooling
 
-## 📘 Présentation
+## Présentation
 
 Lors du premier démarrage de l’application, **un compte administrateur par défaut** est automatiquement créé.  
 Ce compte permet d’accéder aux fonctionnalités d’administration du système (gestion des utilisateurs, rôles, etc.).
@@ -14,7 +14,7 @@ Cette classe s’exécute automatiquement au démarrage de Spring (`@PostConstru
 
 ---
 
-## 👤 Identifiants de l’administrateur par défaut
+## Identifiants de l’administrateur par défaut
 
 | Champ | Valeur |
 |--------|--------|
@@ -26,12 +26,12 @@ Cette classe s’exécute automatiquement au démarrage de Spring (`@PostConstru
 | **Actif** | `true` |
 | **Vérifié** | `true` |
 
-⚠️ **Important :**  
+**Important :**  
 Il est fortement recommandé de **modifier le mot de passe par défaut dès la première connexion**, pour des raisons de sécurité.
 
 ---
 
-## 🔐 Génération des jetons (tokens)
+## Génération des jetons (tokens)
 
 Lors de la création du compte administrateur, les éléments suivants sont automatiquement générés et affichés dans les logs :
 
@@ -55,7 +55,7 @@ TokenExpiresAt: 2025-10-23T17:40:29.329
 
 ---
 
-## 🔁 Comportement lors des redémarrages
+## Comportement lors des redémarrages
 
 - Si le compte administrateur existe déjà dans la base, il **ne sera pas recréé**.  
 - Le log suivant apparaîtra alors :
@@ -69,7 +69,7 @@ L’application continuera ensuite son démarrage normalement.
 
 ---
 
-## ⚙️ Modification des informations administrateur
+## Modification des informations administrateur
 
 Pour modifier les informations par défaut de l’administrateur :
 
@@ -83,7 +83,7 @@ Pour modifier les informations par défaut de l’administrateur :
 
 ---
 
-## 🧭 Étapes recommandées après le premier lancement
+## Étapes recommandées après le premier lancement
 
 - Se connecter avec le compte administrateur par défaut.  
 - Créer d’autres comptes utilisateurs avec les rôles appropriés :
@@ -93,7 +93,7 @@ Pour modifier les informations par défaut de l’administrateur :
 
 ---
 
-## 🗂️ Notes supplémentaires
+## Notes supplémentaires
 
 - L’administrateur est le seul à pouvoir attribuer ou modifier les rôles des autres utilisateurs.
 - Aucun utilisateur ne peut se définir lui-même comme **ADMIN**.

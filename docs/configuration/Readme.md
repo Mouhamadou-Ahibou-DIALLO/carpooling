@@ -4,7 +4,7 @@ Ce projet utilise plusieurs outils pour assurer la qualité du code et mesurer l
 
 ## Commande pour exécuter les vérifications
 
-Pour lancer toutes les vérifications de qualité et les tests, utilisez :
+Pour lancer toutes les vérifications de qualité et les tests, utilisez :
 
 ```bash
 ./gradlew check

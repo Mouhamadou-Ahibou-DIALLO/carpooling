@@ -24,7 +24,7 @@ Remarque : le password n’est jamais renvoyé dans les réponses.
 
 ---
 
-## 🔑 Endpoints disponibles
+## Endpoints disponibles
 
 1. Register (Créer un compte)
 

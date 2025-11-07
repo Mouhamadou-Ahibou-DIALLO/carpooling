@@ -1,6 +1,6 @@
-# 🧪 Guide de test Bash — API Admin
+# Guide de test Bash — API Admin
 
-## ⚙️ Préparation
+## Préparation
 
 1. Assure-toi que ton serveur Spring Boot tourne :
    ```bash
@@ -12,7 +12,7 @@
 
 ---
 
-## ▶️ Exécution des tests
+## Exécution des tests
 
 Lance simplement :
 
@@ -24,7 +24,7 @@ Chaque requête enverra un curl à l’API avec un message explicatif.
 
 ---
 
-## 📋 Scénarios testés
+## Scénarios testés
 
 | #  | Description                                  | Statut attendu |
 | -- | -------------------------------------------- | -------------- |
@@ -45,7 +45,7 @@ Chaque requête enverra un curl à l’API avec un message explicatif.
 
 ---
 
-## 🧾 Vérification
+## Vérification
 
 Regarde les sorties ```HTTP/1.1 200 OK```, ```401 Unauthorized```, etc.
 Les logs de ton backend (```docker logs <container_name>```) te montreront les traces :
@@ -58,7 +58,7 @@ Les logs de ton backend (```docker logs <container_name>```) te montreront les t
 
 ---
 
-## 🧩 Astuce
+## Astuce
 
 Tu peux rediriger la sortie dans un fichier pour analyse :
 

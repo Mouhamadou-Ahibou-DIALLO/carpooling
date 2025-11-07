@@ -4,7 +4,7 @@ Ce script Bash permet de tester rapidement les endpoints de l'API d'authentifica
 
 ---
 
-## ⚠️ Prérequis : 
+## Prérequis : 
 
 jq installé pour formater le JSON.
 

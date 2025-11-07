@@ -1,6 +1,6 @@
-# 📘 Documentation API Utilisateur (`/api/v1/user`)
+# Documentation API Utilisateur (`/api/v1/user`)
 
-## 🧩 Description
+## Description
 Cette section de l’API gère la **gestion du profil utilisateur**.  
 Elle permet :
 - De **compléter** le profil après l’inscription.
@@ -11,28 +11,28 @@ Tous les endpoints nécessitent un **token JWT valide** transmis via le header `
 
 ---
 
-## 🔐 Autorisation
+## Autorisation
 - Accessible uniquement aux utilisateurs authentifiés (`ROLE_PASSENGER`, `ROLE_DRIVER`, `ROLE_ADMIN`).
 - Un utilisateur **ne peut pas s’attribuer le rôle `ADMIN`**.
 - Les champs uniques (`email`, `username`, `phoneNumber`) sont vérifiés automatiquement.
 
 ---
 
-## 🧭 Endpoints disponibles
+## Endpoints disponibles
 
-### 1️⃣ Compléter le profil
+### 1. Compléter le profil
 **`POST /api/v1/user`**
 
-#### 📝 Description
+#### Description
 Permet à un utilisateur de compléter son profil après son inscription.
 
-#### 🔖 Headers
+#### Headers
 ```http
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
 
-### 📦 Corps de la requête
+### Corps de la requête
 
 ```json
 {
@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 ```
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                                |
 | ---- | ------------- | ------------------------------------- |
@@ -67,15 +67,15 @@ Content-Type: application/json
 
 ---
 
-## 2️⃣ Mettre à jour le profil
+## 2. Mettre à jour le profil
 
 `PUT /api/v1/user`
 
-### 📝 Description
+### Description
 
 Permet à un utilisateur de modifier ses informations (email, username, numéro de téléphone, etc.).
 
-### 📦 Corps de la requête
+### Corps de la requête
 
 ```json
 {
@@ -86,7 +86,7 @@ Permet à un utilisateur de modifier ses informations (email, username, numéro 
 }
 ```
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -101,7 +101,7 @@ Permet à un utilisateur de modifier ses informations (email, username, numéro 
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification    | Détail                                           |
 | ---- | ---------------- | ------------------------------------------------ |
@@ -111,15 +111,15 @@ Permet à un utilisateur de modifier ses informations (email, username, numéro 
 
 ---
 
-## 3️⃣ Supprimer le compte
+## 3. Supprimer le compte
 
 `DELETE /api/v1/user`
 
-### 📝 Description
+### Description
 
 Supprime définitivement le compte de l’utilisateur connecté.
 
-### ✅ Réponse — 200 OK
+### Réponse — 200 OK
 
 ```json
 {
@@ -128,7 +128,7 @@ Supprime définitivement le compte de l’utilisateur connecté.
 }
 ```
 
-### ⚠️ Codes d’erreur possibles
+### Codes d’erreur possibles
 
 | Code | Signification | Détail                   |
 | ---- | ------------- | ------------------------ |
@@ -137,7 +137,7 @@ Supprime définitivement le compte de l’utilisateur connecté.
 
 ---
 
-## 🧪 Tests disponibles
+## Tests disponibles
 
 Des fichiers de test sont fournis pour valider les endpoints :
 
@@ -151,7 +151,7 @@ Permet de tester rapidement les requêtes via un script shell.
 
 ---
 
-## 🧠 Notes techniques
+## Notes techniques
 
 - Le rôle `ROLE_ADMIN` ne peut être attribué que par un administrateur via l’API `/api/v1/admin`.
 

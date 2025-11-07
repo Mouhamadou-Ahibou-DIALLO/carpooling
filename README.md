@@ -1,20 +1,20 @@
-# 🚗 Carpooling
+# Carpooling
 
-## 📖 Description
+## Description
 Carpooling est une application web et mobile qui facilite le covoiturage entre voisins, collègues ou étudiants.  
 L’objectif est de réduire le trafic, favoriser la mobilité durable et créer un réseau social de proximité autour du partage de trajets.
 
-## ✨ Fonctionnalités principales
-- 👤 Gestion de profil (nom, photo, préférences, voiture)
-- 📍 Publier et rechercher des trajets (départ, arrivée, horaires, places disponibles)
-- 💬 Messagerie intégrée entre conducteurs et passagers
-- 🔔 Notifications en temps réel
-- ⭐ Système d’évaluations et de commentaires
-- 💳 Simulation de paiement (Orange Money, Wave, Carte bancaire)
+## Fonctionnalités principales
+- Gestion de profil (nom, photo, préférences, voiture)
+- Publier et rechercher des trajets (départ, arrivée, horaires, places disponibles)
+- Messagerie intégrée entre conducteurs et passagers
+- Notifications en temps réel
+- Système d’évaluations et de commentaires
+- Simulation de paiement (Orange Money, Wave, Carte bancaire)
 
 ---
 
-## 🎯 Objectifs
+## Objectifs
 - Réduire le nombre de véhicules en circulation
 - Promouvoir la mobilité durable
 - Offrir des économies financières aux utilisateurs
@@ -22,7 +22,7 @@ L’objectif est de réduire le trafic, favoriser la mobilité durable et créer
 
 ---
 
-## 🧰 Stack technique
+## Stack technique
 
 **Backend**
 - Java 21 (Temurin)
@@ -41,7 +41,7 @@ L’objectif est de réduire le trafic, favoriser la mobilité durable et créer
 
 ---
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 ### 1. Prérequis
 - Java 21
@@ -84,9 +84,14 @@ Monitoring & Health (Actuator)
 - Métriques : http://localhost:8080/actuator/metrics
 - Tous les endpoints : http://localhost:8080/actuator
 
+
+### 5. Frontend
+
+Pour accéder à la partie frontend du projet accéder au dossier `frontend/carpooling-frontend`.
+
 ---
 
-## ⚙️ CI/CD & Qualité du code
+## CI/CD & Qualité du code
 
 Le projet est équipé d’un pipeline CI/CD complète avec :
 
@@ -100,7 +105,7 @@ Le projet est équipé d’un pipeline CI/CD complète avec :
 
 ---
 
-## 📊 Badges
+## Badges
 
 CircleCi : 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Mouhamadou-Ahibou-DIALLO/carpooling/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Mouhamadou-Ahibou-DIALLO/carpooling/tree/master)
