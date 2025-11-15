@@ -13,7 +13,7 @@ export default function Trajets() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
                     {trajets.map((t, i) => (
                         <div key={i} className="bg-white rounded-xl shadow-md p-6">
-                            {/* tu pourras afficher les infos ici */}
+                            {}
                         </div>
                     ))}
                 </div>

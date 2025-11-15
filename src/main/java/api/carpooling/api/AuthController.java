@@ -67,6 +67,7 @@ public class AuthController {
     @ApiResponse(responseCode = "200", description = "User logged successfully")
     @ApiResponse(responseCode = "400", description = "Invalid credentials")
     @ApiResponse(responseCode = "404", description = "User not found")
+    @ApiResponse(responseCode = "401", description = "Inactive account")
     public ResponseEntity<UserDTO> login(@Valid @RequestBody LoginUserRequest loginUserRequest) {
         UserDTO userDTO = authService.login(loginUserRequest);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
